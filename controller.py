@@ -9,7 +9,14 @@ class Controller:
         if not path:
             return
 
-        print(path)
+        self.__model.get_file_names(path=path)
+
+        new_file_names = self.__model.run_preview(
+            remove=['P', '[', ']'],
+            replace={'+': ' ', '_': ' '}
+        )
+
+        print(new_file_names)
 
     def start(self, model, view):
         self.__model = model
