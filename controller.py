@@ -9,7 +9,10 @@ class Controller:
         if not path:
             return
 
-        self.__model.get_file_names(path=path)
+        response = self.__model.get_file_names(path=path)
+        if response != 'OK':
+            self.__view.create_window_error(msg=response)
+            return
 
         new_file_names = self.__model.run_preview(
             remove=['P', '[', ']'],

@@ -42,4 +42,9 @@ class Model:
         return file_name
 
     def get_file_names(self, path):
-        self.__file_names = OS.listdir(path=path)
+        try:
+            self.__file_names = OS.listdir(path=path)
+        except FileNotFoundError:
+            return 'Directory not found'
+
+        return 'OK'

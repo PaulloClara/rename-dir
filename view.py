@@ -21,6 +21,9 @@ class View(Tk):
 
         return field_input
 
+    def create_window_error(self, msg):
+        self.window_error = ErrorBox(msg=msg)
+
     def start(self):
         self.mainloop()
 
@@ -78,3 +81,31 @@ class FieldInput(Frame):
 
     def get_path(self):
         return self.__input.get()
+
+
+class ErrorBox(Tk):
+    def __init__(self, msg):
+        super().__init__()
+
+        self.title('MSG ERROR')
+        self.geometry('300x160')
+        self.resizable(0, 0)
+
+        label = Label(
+            master=self,
+            text=msg,
+            fg='red',
+            font=('arial', 16, 'bold')
+        )
+        label.pack(side='top', padx=10)
+
+        button = Button(
+            master=self,
+            text='OK',
+            bg='green',
+            width=16,
+            command=self.destroy
+        )
+        button.pack(side='bottom', pady=10)
+
+        self.mainloop()
