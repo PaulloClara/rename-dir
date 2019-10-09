@@ -3,6 +3,8 @@ class Controller:
         self.__model = None
         self.__view = None
 
+        self.navbar = Navbar(master=self)
+
     def click_button_send(self):
         path = self.__view.field_input.get_path()
 
@@ -26,3 +28,14 @@ class Controller:
         self.__view = view
 
         self.__view.start()
+
+
+class Navbar:
+    def __init__(self, master):
+        self.__master = master
+
+    def click_button_home(self):
+        pass
+
+    def click_button_config(self):
+        pass

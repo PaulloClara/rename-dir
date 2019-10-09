@@ -10,7 +10,17 @@ class View(Tk):
 
         self.__controller = controller
 
+        self.navbar = self._create_navbar()
         self.field_input = self._create_field_input()
+
+    def _create_navbar(self):
+        navbar = Navbar(master=self)
+
+        command = self.__controller.navbar.click_button_home
+        navbar.config_button_home(command=command)
+
+        command = self.__controller.navbar.click_button_config
+        navbar.config_button_config(command=command)
 
     def _create_field_input(self):
         field_input = FieldInput(master=self)
@@ -28,14 +38,55 @@ class View(Tk):
         self.mainloop()
 
 
+class Navbar(Frame):
+    def __init__(self, master):
+        super().__init__(master=master)
+        self.grid()
+
+        self.__button_home = self._create_button_home()
+        self.__button_config = self._create_button_config()
+
+    def _create_button_home(self):
+        button = Button(
+            master=self,
+            text='Home',
+            bg='green',
+            width=12,
+            font=('arial', 14, 'bold')
+        )
+
+        button.grid(row=0, column=0)
+
+        return button
+
+    def _create_button_config(self):
+        button = Button(
+            master=self,
+            text='Config',
+            bg='blue',
+            width=12,
+            font=('arial', 14, 'bold')
+        )
+
+        button.grid(row=0, column=1)
+
+        return button
+
+    def config_button_home(self, command):
+        self.__button_home.configure(command=command)
+
+    def config_button_config(self, command):
+        self.__button_config.configure(command=command)
+
+
 class FieldInput(Frame):
     def __init__(self, master):
         super().__init__(master=master, bd=10)
         self.grid()
 
-        self.__label = self._create_label()
         self.__input = self._create_input()
         self.__button = self._create_button()
+        self.__label = self._create_label()
 
     def _create_label(self):
         label = Label(
@@ -44,7 +95,7 @@ class FieldInput(Frame):
             font=('arial', 12, 'bold')
         )
 
-        label.grid(row=0, column=0, sticky='W')
+        label.grid(row=1, column=0, sticky='W')
 
         return label
 
@@ -58,7 +109,7 @@ class FieldInput(Frame):
             font=('arial', 14, 'italic')
         )
 
-        _input.grid(row=1, column=0, pady=6)
+        _input.grid(row=0, column=0, pady=6)
         _input.focus()
 
         return _input
@@ -72,7 +123,7 @@ class FieldInput(Frame):
             font=('arial', 14, 'bold')
         )
 
-        button.grid(row=1, column=1, padx=6)
+        button.grid(row=0, column=1, padx=6)
 
         return button
 
